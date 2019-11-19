@@ -18,8 +18,6 @@ import com.ankushyerwar.blankndstructure.ui.interfaces.OnToolbarTitleChanged;
 
 public class HomeFragment extends Fragment {
 
-    private OnToolbarTitleChanged mListener;
-
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -27,16 +25,11 @@ public class HomeFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (context instanceof OnToolbarTitleChanged) {
-            mListener = (OnToolbarTitleChanged) context;
-        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mListener.onTitleChanged("My Fragment");
-        navItemChecked(true);
     }
 
     @Override
@@ -60,13 +53,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        navItemChecked(false);
     }
 
-    private void navItemChecked(boolean isChecked) {
-        if (getActivity() != null){
-            ((MainActivity)getActivity())
-                    .mNavigationView.getMenu().findItem(R.id.nav_home).setChecked(isChecked);
-        }
-    }
 }
