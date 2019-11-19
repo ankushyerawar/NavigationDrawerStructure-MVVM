@@ -26,6 +26,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import android.view.Menu;
 
@@ -34,9 +36,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
-        OnToolbarTitleChanged {
+public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.drawer_layout)
     DrawerLayout mMainDrawerLayout;
@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity
     public NavigationView mNavigationView;
 
     public ActionBarDrawerToggle mMainActionBarToggle;
+    private AppBarConfiguration mAppBarConfiguration;
     public View mHeaderView;
     private Fragment mNavHostFragment;
     private NavController mNavController;
@@ -61,6 +62,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         initViews();
+
+        NavigationUI.setupActionBarWithNavController(this, mNavController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(mNavigationView, mNavController);
     }
 
     @Override
@@ -98,36 +102,6 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_home) {
-            // Handle the camera action
-            if (item.isChecked()) {
-                mMainDrawerLayout.closeDrawer(GravityCompat.START);
-            } else {
-                //Open fragment from here
-                mNavController.navigate(R.id.homeFragment);
-            }
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_tools) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        mMainDrawerLayout.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
     private void initViews() {
         ButterKnife.bind(this);
         setSupportActionBar(mMainToolbar);
@@ -135,12 +109,9 @@ public class MainActivity extends AppCompatActivity
         mNavHostFragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
-        mMainActionBarToggle = new ActionBarDrawerToggle(
-                this, mMainDrawerLayout, mMainToolbar, R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close);
-        mMainDrawerLayout.addDrawerListener(mMainActionBarToggle);
-        mMainActionBarToggle.syncState();
-        mNavigationView.setNavigationItemSelectedListener(this);
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.homeFragment,R.id.galleryFragment,R.id.slideShowFragment)
+                .setDrawerLayout(mMainDrawerLayout)
+                .build();
 
         mHeaderView = mNavigationView.getHeaderView(0);
 
@@ -154,12 +125,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onTitleChanged(String title) {
-        setToolbarTitle(title);
-    }
-
-    private void setToolbarTitle(String title) {
-        mMainToolbar.setTitle(title);
+    public boolean onSupportNavigateUp() {
+        return NavigationUI.navigateUp(mNavController,mAppBarConfiguration);
     }
 
     //to lock drawer when not needed
