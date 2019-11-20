@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.nav_view)
     public NavigationView mNavigationView;
 
-    public ActionBarDrawerToggle mMainActionBarToggle;
     private AppBarConfiguration mAppBarConfiguration;
     public View mHeaderView;
     private Fragment mNavHostFragment;
