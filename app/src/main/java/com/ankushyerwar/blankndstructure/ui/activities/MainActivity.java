@@ -129,11 +129,8 @@ public class MainActivity extends AppCompatActivity {
     public  void setDrawerLocked(boolean enabled) {
         if (enabled) {
             mMainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-            //mMainActionBarToggle.setDrawerIndicatorEnabled(false);
         } else {
             mMainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-            mMainActionBarToggle.setDrawerIndicatorEnabled(true);
-            mMainActionBarToggle.syncState();
         }
     }
 }

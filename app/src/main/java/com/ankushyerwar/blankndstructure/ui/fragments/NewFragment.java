@@ -36,4 +36,11 @@ public class NewFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_new, container, false);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (getActivity() != null) {
+            ((MainActivity)getActivity()).setDrawerLocked(false);
+        }
+    }
 }
