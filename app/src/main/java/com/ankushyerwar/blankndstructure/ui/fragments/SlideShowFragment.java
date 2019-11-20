@@ -1,4 +1,4 @@
-package com.ankushyerwar.blankndstructure;
+package com.ankushyerwar.blankndstructure.ui.fragments;
 
 
 import android.os.Bundle;
@@ -10,17 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ankushyerwar.blankndstructure.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class SlideShowFragment extends Fragment {
-
 
     public SlideShowFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,

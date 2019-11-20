@@ -1,11 +1,9 @@
 package com.ankushyerwar.blankndstructure.ui.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import com.ankushyerwar.blankndstructure.ui.fragments.HomeFragment;
 import com.ankushyerwar.blankndstructure.R;
-import com.ankushyerwar.blankndstructure.ui.interfaces.OnToolbarTitleChanged;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -30,8 +28,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import android.view.Menu;
-
-import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -133,24 +129,9 @@ public class MainActivity extends AppCompatActivity {
     public  void setDrawerLocked(boolean enabled) {
         if (enabled) {
             mMainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-            mMainActionBarToggle.setDrawerIndicatorEnabled(false);
+            //mMainActionBarToggle.setDrawerIndicatorEnabled(false);
         } else {
             mMainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-            mMainActionBarToggle.setDrawerIndicatorEnabled(true);
-            mMainActionBarToggle.syncState();
-        }
-    }
-
-    //To set Fragment toolbar back button
-    public void setBackButton(Activity activity, boolean enabled) {
-        if (enabled) {
-            mMainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-            mMainActionBarToggle.setDrawerIndicatorEnabled(false);
-            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-            mMainActionBarToggle.setToolbarNavigationClickListener(view -> activity.onBackPressed());
-        } else {
-            mMainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
             mMainActionBarToggle.setDrawerIndicatorEnabled(true);
             mMainActionBarToggle.syncState();
         }
