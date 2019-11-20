@@ -11,7 +11,6 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
@@ -116,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show()
 
         );
-
     }
 
     @Override
