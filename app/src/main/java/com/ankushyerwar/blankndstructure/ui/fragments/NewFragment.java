@@ -22,25 +22,9 @@ public class NewFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (getActivity() != null) {
-            ((MainActivity)getActivity()).setDrawerLocked(true);
-        }
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_new, container, false);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (getActivity() != null) {
-            ((MainActivity)getActivity()).setDrawerLocked(false);
-        }
     }
 }

@@ -56,9 +56,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initViews();
-
-        NavigationUI.setupActionBarWithNavController(this, mNavController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(mNavigationView, mNavController);
     }
 
     @Override
@@ -103,9 +100,32 @@ public class MainActivity extends AppCompatActivity {
         mNavHostFragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
-        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.homeFragment,R.id.galleryFragment,R.id.slideShowFragment)
+        mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.homeFragment, R.id.galleryFragment, R.id.slideShowFragment)
                 .setDrawerLayout(mMainDrawerLayout)
                 .build();
+
+        NavigationUI.setupWithNavController(mNavigationView, mNavController);
+        NavigationUI.setupWithNavController(mMainToolbar,mNavController,mAppBarConfiguration);
+
+        /* When Set like this it works fine but when drawer items are selected the navigation up
+         * button is enabled and when clicked on that the drawer opens and you are not redirected
+         * to min fragment*/
+        //NavigationUI.setupActionBarWithNavController(this,mNavController,mMainDrawerLayout);
+
+        /* When Set like this you will get proper functionality but if you want to hide Hamburger
+         * icon you cannot do that and also drawer is not locked by default when navigation up
+         * button is visible*/
+        //NavigationUI.setupWithNavController(mMainToolbar,mNavController,mAppBarConfiguration);
+        //NavigationUI.setupActionBarWithNavController(this, mNavController, mAppBarConfiguration);
+
+        /* When Set like this you will see navigation up button (Back Button) when you select
+         * Navigation Drawer Items instead of Hamburger icon*/
+        //NavigationUI.setupWithNavController(mMainToolbar, mNavController, mMainDrawerLayout);
+
+        /* When Set like this you will not get Navigation Drawer Hamburger Icon but still you will
+         * be accessible to drawer */
+        //NavigationUI.setupWithNavController(mMainToolbar,mNavController);
+        //NavigationUI.setupActionBarWithNavController(this,mNavController);
 
         mHeaderView = mNavigationView.getHeaderView(0);
 
@@ -119,11 +139,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        return NavigationUI.navigateUp(mNavController,mAppBarConfiguration);
+        return NavigationUI.navigateUp(mNavController, mAppBarConfiguration);
     }
 
     //to lock drawer when not needed
-    public  void setDrawerLocked(boolean enabled) {
+    public void setDrawerLocked(boolean enabled) {
         if (enabled) {
             mMainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         } else {
