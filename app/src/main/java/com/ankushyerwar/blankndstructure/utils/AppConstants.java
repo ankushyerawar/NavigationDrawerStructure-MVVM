@@ -5,13 +5,12 @@ import android.Manifest;
 public class AppConstants {
 
     //App
-    public static final String PACKAGE_NAME = "com.rexaware.uppwd.nigranije";
+    public static final String PACKAGE_NAME = "com.ankushyerwar.blankndstructure";
 
     //----------------------------------------------------------------------------------------------
 
     //Base urls
     public static final String BASE_URL = "";
-    public static final String BASE_GOOGLE_MAP_URL = "http://maps.google.com/maps?q=loc:";
 
     //----------------------------------------------------------------------------------------------
 
@@ -21,12 +20,12 @@ public class AppConstants {
     //----------------------------------------------------------------------------------------------
 
     //Database
-    public static final String DATABASE_NAME = "db-ankusheyrawar";
+    public static final String DATABASE_NAME = "db-name";
 
     //----------------------------------------------------------------------------------------------
 
     //Shared Pref
-    public static final String PREF_NAME = "ANKUSH_Y_PREF";
+    public static final String PREF_NAME = "PREF_NAME";
 
     //----------------------------------------------------------------------------------------------
 
