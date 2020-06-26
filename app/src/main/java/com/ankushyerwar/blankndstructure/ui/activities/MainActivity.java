@@ -2,7 +2,6 @@ package com.ankushyerwar.blankndstructure.ui.activities;
 
 import android.os.Bundle;
 
-import com.ankushyerwar.blankndstructure.ui.fragments.HomeFragment;
 import com.ankushyerwar.blankndstructure.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -20,7 +19,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -47,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     public View mHeaderView;
-    private Fragment mNavHostFragment;
     private NavController mNavController;
 
     @Override
@@ -60,12 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        final Fragment currentFragment = mNavHostFragment.getChildFragmentManager()
-                .getFragments().get(0);
         if (mMainDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mMainDrawerLayout.closeDrawer(GravityCompat.START);
-        } else if (currentFragment instanceof HomeFragment) {
-            finish();
         } else {
             super.onBackPressed();
         }
@@ -97,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(mMainToolbar);
 
-        mNavHostFragment = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(R.id.homeFragment, R.id.galleryFragment, R.id.slideShowFragment)
@@ -106,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(mNavigationView, mNavController);
         NavigationUI.setupWithNavController(mMainToolbar,mNavController,mAppBarConfiguration);
+
+        onFragmentToolbarChanged();
 
         /* When Set like this it works fine but when drawer items are selected the navigation up
          * button is enabled and when clicked on that the drawer opens and you are not redirected
@@ -142,12 +136,25 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(mNavController, mAppBarConfiguration);
     }
 
-    //to lock drawer when not needed
-    public void setDrawerLocked(boolean enabled) {
-        if (enabled) {
-            mMainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        } else {
-            mMainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-        }
+    private void onFragmentToolbarChanged() {
+        mNavController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+
+            switch (destination.getId()) {
+                //In Case you Don't Want to Show Toolbar
+                /*case R.id.newFragment:
+                    mMainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    mMainToolbar.setVisibility(View.GONE);
+                    break;*/
+
+                case R.id.newFragment:
+                    mMainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                    break;
+
+                default:
+                    mMainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                    mMainToolbar.setVisibility(View.VISIBLE);
+                    break;
+            }
+        });
     }
 }
